@@ -1,6 +1,6 @@
 # Connector specification
 
-Status: draft for the first Core implementation. No provider connector is implemented.
+Status: draft for the first Core implementation. Schema discovery and paged reading are implemented. The current scalar import uses a single-record idempotent writer. The batch interface below describes the planned contract. No provider connector is implemented.
 
 ## Capabilities and signatures
 
@@ -23,7 +23,7 @@ interface RecordWriter
 }
 ```
 
-All types live under `SaaSPassport\Contracts` initially. The first implementation adds the discovery interface and schema vocabulary only. Use immutable `ConnectorSchema`, `EntitySchema`, and `FieldSchema` values with list-shaped collections and case-sensitive stable string keys. Entity and field keys must be nonempty and unique in their respective scopes. Fields expose `key`, `type`, `nullable`, and `required` independently. The initial field kinds are string, boolean, integer, decimal, datetime, reference, and opaque. Add relationship targets and schema fingerprints in their scheduled changes.
+All types live under `SaaSPassport\Contracts` initially. The implemented discovery values also support reference targets within the same connector schema. Use immutable `ConnectorSchema`, `EntitySchema`, and `FieldSchema` values with list-shaped collections and case-sensitive stable string keys. Entity and field keys must be nonempty and unique in their respective scopes. Fields expose `key`, `type`, `nullable`, and `required` independently. The initial field kinds are string, boolean, integer, decimal, datetime, reference, and opaque. Add relationship targets and schema fingerprints in their scheduled changes.
 
 ## Reading
 

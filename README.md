@@ -8,9 +8,32 @@ The planned toolkit will discover schemas, stream records into portable archives
 
 ## Status and architecture
 
-This checkout provides Composer autoloading, a base package exception, synthetic smoke tests, quality tooling, and draft specifications. Export, import, mapping, verification, and provider connectors are planned. The project is unpublished and pre-alpha.
+This unpublished pre-alpha checkout supports schema discovery, paged export to a directory archive, byte integrity checks, explicit scalar field mapping, dry-run counts, and scalar import through a caller-supplied idempotent writer. The integration test exercises this workflow with synthetic records.
 
-Core orchestration will use capability-specific connector interfaces. Archive codecs, mapping, migration, and verification will be independent modules. [Architecture](docs/ARCHITECTURE.md) describes their dependencies and public design.
+Relationship values can be exported, but scalar import rejects mapped records with relationship data. The verifier checks declared files, digests, JSONL envelopes, and record counts. A destination can expose comparable scalar values through `DestinationLookup`. The comparison reports verified, mismatched, and unverified records. Full archive conformance, durable checkpoints, type conversions, and Zoho and Twenty connectors are planned.
+
+Implement the source discovery and pagination methods in `SaaSPassport\Core\Source`. Call `ArchiveExporter::export()` with a new path inside an existing, privately controlled directory. Use `ArchiveImport::preview()` before passing a writer to `execute()`. Use a writer that persists idempotency keys within the destination scope. Keep the archive immutable during verification and import. The scalar importer checks up to 100,000 record IDs and 8 MiB of ID text per mapped entity to detect duplicates before writing. [Architecture](docs/ARCHITECTURE.md) describes their dependencies and public design.
+
+## Scalar migration example
+
+The application supplies a `Source` and an idempotent `RecordWriter`. Resolve `$archive` to a new directory under an existing private workspace.
+
+```php
+use SaaSPassport\Archive\ArchiveExporter;
+use SaaSPassport\Mapping\FieldMapping;
+use SaaSPassport\Migration\ArchiveImport;
+
+(new ArchiveExporter())->export($source, $archive, 'example', 'workspace-a');
+
+$mapping = ['contacts' => new FieldMapping('people', ['name' => 'fullName'])];
+$import = new ArchiveImport();
+$planned = $import->preview($archive, $mapping);
+
+// After reviewing $planned:
+$acknowledged = $import->execute($archive, $mapping, $writer);
+```
+
+Replaying the same archive and mapping generates the same operation keys. The destination writer owns durable deduplication. A changed archive or mapped payload can generate different keys.
 
 ## Local development
 

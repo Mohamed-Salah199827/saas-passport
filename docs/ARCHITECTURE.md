@@ -1,6 +1,6 @@
 # Architecture
 
-Status: draft. The Composer foundation and base exception are implemented. The module interfaces below are planned.
+Status: draft. The package implements discovery, paged export, archive byte and envelope checks, and scalar preview and import. The broader module behaviors below describe the target design.
 
 ```mermaid
 flowchart LR

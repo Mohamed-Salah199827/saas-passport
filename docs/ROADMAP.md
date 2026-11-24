@@ -11,4 +11,4 @@ The [PR roadmap](PR-ROADMAP.md) tracks deliverables and dependencies. Milestones
 | Provider pilots | 093–100 | Zoho and Twenty adapters pass fixture-based contract tests and have documented limitations. |
 | First pre-alpha release | 101–103 | Release candidate checks, packaging, and maintainer-operated distribution are ready. |
 
-First implementation item: **049 — feat(contracts): define connector schema discovery**. It depends on the draft connector contract and local quality tooling. The archive work can proceed independently after its format dependencies are met.
+Next archive conformance item: **031**, define canonical scalar syntax. Core discovery and pagination are implemented. Add provider adapters after the connector contract suite and the provider-specific prerequisites in the backlog.

@@ -1,6 +1,6 @@
 # 103-pull-request roadmap
 
-Completed items were delivered together in the bootstrap. IDs group related work by phase. Start Core with **049**. Planned items can proceed as their prerequisites are completed. See [milestone gates](ROADMAP.md).
+Items 001 through 030 were delivered in the bootstrap. IDs group related work by phase. Core work is underway. **049** is complete. The paged read contracts from **050** work, with cursor persistence semantics still pending. The scalar end-to-end workflow covers parts of later items. Planned items can proceed as their prerequisites are completed. See [milestone gates](ROADMAP.md).
 
 ## Phase A — Repository foundation and governance (001–012)
 
@@ -542,7 +542,7 @@ Completed items were delivered together in the bootstrap. IDs group related work
 
 ### 049 — feat(contracts): define connector schema discovery
 
-- **Status** · Planned
+- **Status** · Implemented on main
 - **Purpose** · Give providers a common discovery vocabulary.
 - **Implementation scope and acceptance criteria** · Add immutable SchemaDiscovery, ConnectorSchema, EntitySchema, FieldSchema and field kind enum with unique nonempty keys.
 - **Expected files or modules** · `src/Contracts`, `tests/Unit/Contracts`
@@ -553,7 +553,7 @@ Completed items were delivered together in the bootstrap. IDs group related work
 
 ### 050 — feat(contracts): define paged record reads
 
-- **Status** · Planned
+- **Status** · Partially implemented
 - **Purpose** · Fetch records without accumulating a dataset.
 - **Implementation scope and acceptance criteria** · Expose RecordReader with bounded pages, opaque cursors and string IDs.
 - **Expected files or modules** · `src/Contracts`
