@@ -1,0 +1,12 @@
+# GitHub repository setup
+
+These steps require repository administration access. Apply them after the foundation is on the default branch and all matrix jobs have reported once.
+
+1. Open **Settings → Rules → Rulesets → New ruleset → New branch ruleset**. Name it `Protect main`, target the default branch, set enforcement to **Active**, and leave the bypass list empty. Require a pull request before merging, one approval, resolved conversations, and status checks. Select the observed `PHP 8.3`, `PHP 8.4`, and `PHP 8.5` jobs from CI. Block deletions and force pushes. Enable code-owner review after ensuring a second eligible reviewer is available, since authors cannot approve their own PRs. Where rulesets are unavailable, add equivalent protection under **Settings → Branches**.
+2. Under **Settings → General → Features**, enable **Discussions**. Use the Discussions tab to set up Announcements, General, and Q&A. Post a welcome note linking the contributor guide.
+3. Under **Issues → Labels → New label**, add `foundation`, `tooling`, `specification`, `archive`, `connectors`, `mapping`, `migration`, `verification`, `integrations`, `release`, and `security`. Keep the default `bug`, `enhancement`, `documentation`, and `good first issue` labels. Create the [milestones](ROADMAP.md) via **Issues → Milestones → New milestone** and assign issues as they are opened.
+4. Under **Settings → Advanced Security** (shown as **Code security and analysis** on some repository settings pages), enable **Private vulnerability reporting** and **Dependabot alerts**. Verify that **Security → Advisories → Report a vulnerability** is visible to external users.
+5. Under **Settings → Actions → General**, set default workflow permissions to **Read repository contents and packages**. Leave permission for Actions to create or approve pull requests disabled. Require approval for external fork workflows according to maintainer capacity.
+6. Under **Settings → General → Pull Requests**, enable squash merging and configure the default squash title to use the PR title. Review the CODEOWNERS entry when maintainership changes.
+
+Official references: [Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository), [Discussions](https://docs.github.com/en/discussions/quickstart), and [private vulnerability reporting](https://docs.github.com/en/code-security/security-advisories/working-with-repository-security-advisories/configuring-private-vulnerability-reporting-for-a-repository).
